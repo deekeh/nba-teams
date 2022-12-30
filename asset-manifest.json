@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/nba-teams/static/css/main.20d2e24c.css",
+    "main.js": "/nba-teams/static/js/main.b42bfece.js",
+    "static/js/787.1659b9ac.chunk.js": "/nba-teams/static/js/787.1659b9ac.chunk.js",
+    "index.html": "/nba-teams/index.html",
+    "main.20d2e24c.css.map": "/nba-teams/static/css/main.20d2e24c.css.map",
+    "main.b42bfece.js.map": "/nba-teams/static/js/main.b42bfece.js.map",
+    "787.1659b9ac.chunk.js.map": "/nba-teams/static/js/787.1659b9ac.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.20d2e24c.css",
+    "static/js/main.b42bfece.js"
+  ]
+}
