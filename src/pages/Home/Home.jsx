@@ -8,6 +8,13 @@ function Home() {
   const [showSidebar, setShowSidebar] = new useState(false);
   const [gameData, setGameData] = new useState(() => null);
   const [selectedTeam, setSelectedTeam] = new useState(undefined);
+  /**
+   * toggle the sidebar on/off. if the function has a number parameter,
+   * then get game details for the mentioned parameter-number as team's
+   * ID and fetches from the API to be passed to the sidebar.
+   * @param {Number} teamId optional ID of the team to fetch game-data
+   * @returns {undefined} does not return anything
+   */
   function toggleSidebar(teamId) {
     setSelectedTeam(teamId);
     if (typeof teamId === 'number') {
@@ -22,15 +29,14 @@ function Home() {
     setShowSidebar(val => !val);
   }
 
-  const [pageData, setPageData] = useState(() => ({
-    "total_pages": 3,
-    "current_page": 1,
-    "next_page": 2,
-    "per_page": 10,
-    "total_count": 30
-  }));
-
   const [tableData, setTableData] = new useState(() => []);
+  /**
+   * Fetch teams data from the API along with the page configuration for
+   * pagination purpose.
+   * @param {Number} pageNumber page number to fetch data of, default: 1
+   * @param {Number} itemsPerPage items to get in one page, default: 10
+   * @returns {Promise} promise with teams data
+   */
   function prepareTableData(pageNumber = 1, itemsPerPage = 10) {
     return new Promise(function (resolve, reject) {
       fetch(`https://www.balldontlie.io/api/v1/teams?page=${pageNumber}&per_page=${itemsPerPage}`)
@@ -43,6 +49,19 @@ function Home() {
     });
   }
 
+  const [pageData, setPageData] = useState(() => ({
+    "total_pages": 3,
+    "current_page": 1,
+    "next_page": 2,
+    "per_page": 10,
+    "total_count": 30
+  }));
+  /**
+   * get the data of the teams in the specified page and set the
+   * current page details to be used for pagination, etc. from
+   * the same API.
+   * @param {Number} pageNumber the page number to get data of.
+   */
   function changePage(pageNumber = pageData.current_page) {
     prepareTableData(pageNumber)
       .then(teams => {
@@ -50,6 +69,9 @@ function Home() {
       });
   }
 
+  /**
+   * fetch first page team-details and set to state.
+   */
   useEffect(changePage, []);
 
   return <>
