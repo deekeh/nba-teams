@@ -32,10 +32,12 @@
       background-color: #d8dfe4;
       display: flex;
       align-items: center;
-      padding: 12px 8px;
+      padding: 18px;
 
       .team-name {
         flex-grow: 1;
+        font-weight: 700;
+        font-size: 22px;
       }
 
       .close-sidebar {
@@ -48,6 +50,30 @@
         align-items: center;
         margin: 0;
         padding: 0;
+      }
+    }
+
+    .data-box-info {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 18px;
+
+      .section-heading {
+        font-weight: 700;
+      }
+
+      .data-row {
+        display: flex;
+        flex-wrap: wrap;
+        .data-cell {
+          flex: 1 0 120px;
+          padding: 0 12px;
+
+          &.bold {
+            font-weight: 700;
+          }
+        }
       }
     }
   }
