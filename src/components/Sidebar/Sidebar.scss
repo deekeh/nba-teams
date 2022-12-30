@@ -1,0 +1,72 @@
+.Sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  height: 100vh;
+  width: 100vw;
+
+  button.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+  }
+
+  section.data-box {
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: calc(min(400px, 100vw));
+    z-index: 10;
+    transition: right 200ms linear;
+
+    .data-box-header {
+      background-color: #d8dfe4;
+      display: flex;
+      align-items: center;
+      padding: 12px 8px;
+
+      .team-name {
+        flex-grow: 1;
+      }
+
+      .close-sidebar {
+        border: none;
+        cursor: pointer;
+        outline: none;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  &.on {
+    visibility: visible;
+    opacity: 1;
+
+    section.data-box {
+      right: 0;
+    }
+  }
+  &.off {
+    visibility: hidden;
+    opacity: 0;
+    section.data-box {
+      right: -100vw;
+    }
+  }
+
+  transition: visibility 200ms, opacity 200ms linear;
+}
