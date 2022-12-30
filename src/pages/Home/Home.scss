@@ -44,6 +44,7 @@
             text-align: center;
             padding-top: 19px;
             padding-bottom: 19px;
+            padding: 19px 4px;
             border: solid 0 #fff;
             &:first-of-type {
               border-top-left-radius: 5px;
@@ -67,6 +68,13 @@
       tbody {
         tr {
           background-color: #f8fbfd;
+          cursor: pointer;
+          &:hover {
+            background-color: #eef5fa;
+          }
+          &.selected {
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #F8FBFD;
+          }
         }
       }
     }
@@ -85,6 +93,11 @@
       color: #fff;
       cursor: pointer;
       padding: 4px 8px;
+
+      &:disabled {
+        background-color: #999;
+        cursor: default;
+      }
     }
   }
 }
