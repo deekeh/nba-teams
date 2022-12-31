@@ -10,20 +10,31 @@
     font-size: 48px;
   }
 
-  label.search-container {
-    border: 2px solid #074684;
-    border-radius: 10px;
-    padding: 12px;
-    width: min(750px, 100%);
+  form.player-search-form {
+    label.search-container {
+      border: 2px solid #074684;
+      border-radius: 10px;
+      padding: 12px;
+      width: min(750px, 100%);
+  
+      display: flex;
+      align-items: center;
+      gap: 8px;
 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    input {
-      flex-grow: 1;
-      border: none;
-      outline: none;
+      button {
+        border: none;
+        outline: none;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        cursor: pointer;
+      }
+  
+      input {
+        flex-grow: 1;
+        border: none;
+        outline: none;
+      }
     }
   }
 
