@@ -1,0 +1,81 @@
+section.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.on {
+    visibility: visible;
+    opacity: 1;
+  }
+  &.off {
+    visibility: hidden;
+    opacity: 0;
+  }
+  transition: visibility 200ms, opacity 200ms linear;
+
+  button.modal-overlay {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 14;
+    height: 100%;
+    width: 100%;
+  }
+
+  .modal-box {
+    background-color: #fff;
+    position: relative;
+    z-index: 15;
+    padding: 10px 8px;
+    border-radius: 5px;
+    max-height: 500px;
+    width: calc(min(500px, 100vw));
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    @media screen and (max-width: 500px) {
+      border-radius: 0;
+      height: 100%;
+      max-height: 100%;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button.close-modal {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background-color: #000;
+    }
+
+    ul.players-list {
+      margin: 0;
+      overflow: auto;
+    }
+  }
+}

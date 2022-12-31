@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 // components
 import Sidebar from "../../components/Sidebar/Sidebar";
+import Modal from "../../components/Modal/Modal";
 
 function Home() {
   const [showSidebar, setShowSidebar] = new useState(false);
@@ -101,18 +102,57 @@ function Home() {
    */
   useEffect(changePage, []);
 
+  const [playerData, setPlayerData] = new useState(null);
+  /**
+   * Fetch all the players from the API and filter out those
+   * which match the searched string.
+   * @param {Object} e Event object of the submitted form
+   */
+  function searchPlayer(e) {
+    e.preventDefault();
+    document.activeElement.blur();
+    setPlayerData(null);
+    fetch(`https://www.balldontlie.io/api/v1/players?per_page=100`)
+      .then(res => res.json())
+      .then(data => {
+        const searchQuery = e.target.player.value;
+        const parts = searchQuery.split(" ");
+        const searchExpressions = new Array();
+        parts.forEach(part => searchExpressions.push(new RegExp(part, 'i')));
+
+        const filteredPlayers = data.data.filter(player => {
+          return searchExpressions.some(expression => expression.test(player.first_name)) ||
+            searchExpressions.some(expression => expression.test(player.last_name));
+        });
+        setPlayerData(filteredPlayers);
+      });
+    setShowModal(true);
+  }
+
+  const [showModal, setShowModal] = new useState(false);
+  /**
+   * toggle the visibility of players search results modal
+   */
+  function toggleModal() {
+    setShowModal(val => !val);
+  }
+
   return <>
     <main className="Home">
       <header className="header">
         NBA Teams
       </header>
 
-      <label className="search-container">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-        </svg>
-        <input type="text" />
-      </label>
+      <form onSubmit={searchPlayer} className="player-search-form">
+        <label className="search-container">
+          <button type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+          </button>
+          <input type="text" placeholder="Search for players" name="player" />
+        </label>
+      </form>
 
       <section className="teams-data-table-container">
         <table className="teams-data-table">
@@ -183,6 +223,9 @@ function Home() {
 
     {/* sidebar */}
     <Sidebar state={showSidebar} data={gameData} toggleSidebar={toggleSidebar} />
+
+    {/* player search modal */}
+    <Modal playerData={playerData} showModal={showModal} toggleModal={toggleModal} />
   </>
 }
 
