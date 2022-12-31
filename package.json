@@ -1,6 +1,6 @@
 {
   "name": "nba-teams",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "homepage": "https://deekeh.github.io/nba-teams",
   "private": true,
   "dependencies": {
