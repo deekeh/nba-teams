@@ -1,5 +1,8 @@
 import "./Modal.scss";
 
+// components
+import Loader from "../Loader/Loader";
+
 function Modal(props) {
   return <section className={`Modal${props.showModal ? ' on' : ' off'}`}>
     <button className="modal-overlay" onClick={props.toggleModal} />
@@ -15,15 +18,21 @@ function Modal(props) {
 
       <div className="divider"></div>
 
-      <ul className="players-list">
-        {
-          props.playerData?.length > 0 ?
-            props.playerData?.map((player, idx) => <li key={idx} className="player">
-              {player.first_name} {player.last_name}
-            </li>) :
-            "No players found"
-        }
-      </ul>
+      {
+        props.playerData === 'loading' ?
+          <div className="loading-container">
+            <Loader></Loader>
+          </div> :
+          <ul className="players-list">
+            {
+              props.playerData?.length > 0 ?
+                props.playerData?.map((player, idx) => <li key={idx} className="player">
+                  {player.first_name} {player.last_name}
+                </li>) :
+                "No players found"
+            }
+          </ul>
+      }
     </div>
   </section>
 }

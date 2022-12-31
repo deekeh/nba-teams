@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // components
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Modal from "../../components/Modal/Modal";
+import Loader from "../../components/Loader/Loader";
 
 function Home() {
   const [showSidebar, setShowSidebar] = new useState(false);
@@ -19,7 +20,7 @@ function Home() {
   function toggleSidebar(teamId) {
     setSelectedTeam(teamId);
     if (typeof teamId === 'number') {
-      setGameData(() => null);
+      setGameData(() => 'loading');
       fetch(`https://www.balldontlie.io/api/v1/games?per_page=100&team_ids=${teamId}`)
         .then(res => res.json())
         .then(data => {
@@ -39,6 +40,7 @@ function Home() {
    * @returns {Promise} promise with teams data
    */
   function prepareTableData(pageNumber = 1, itemsPerPage = 10) {
+    setTableData('loading');
     return new Promise(function (resolve, reject) {
       fetch(`https://www.balldontlie.io/api/v1/teams?page=${pageNumber}&per_page=${itemsPerPage}`)
         .then(res => res.json())
@@ -111,7 +113,7 @@ function Home() {
   function searchPlayer(e) {
     e.preventDefault();
     document.activeElement.blur();
-    setPlayerData(null);
+    setPlayerData("loading");
     fetch(`https://www.balldontlie.io/api/v1/players?per_page=100`)
       .then(res => res.json())
       .then(data => {
@@ -175,24 +177,35 @@ function Home() {
               <th>Division</th>
             </tr>
           </thead>
-          <tbody>
-            {
-              tableData.map((el, idx) =>
-                <tr
-                  className={selectedTeam === el.id ? "selected" : undefined}
-                  key={idx}
-                  onClick={() => toggleSidebar(el.id)}
-                >
-                  <td>{el.name || "NA"}</td>
-                  <td>{el.city || "NA"}</td>
-                  <td>{el.abbreviation || "NA"}</td>
-                  <td>{el.conference || "NA"}</td>
-                  <td>{el.division || "NA"}</td>
-                </tr>
-              )
-            }
-          </tbody>
+          {
+            Array.isArray(tableData) ?
+              <tbody>
+                {
+                  tableData.map((el, idx) =>
+                    <tr
+                      className={selectedTeam === el.id ? "selected" : undefined}
+                      key={idx}
+                      onClick={() => toggleSidebar(el.id)}
+                    >
+                      <td>{el.name || <>NA</>}</td>
+                      <td>{el.city || <>NA</>}</td>
+                      <td>{el.abbreviation || <>NA</>}</td>
+                      <td>{el.conference || <>NA</>}</td>
+                      <td>{el.division || <>NA</>}</td>
+                    </tr>
+                  )
+                }
+              </tbody> :
+              <></>
+          }
         </table>
+        {
+          tableData === 'loading' ?
+            <div className="loader-container">
+              <Loader></Loader>
+            </div> :
+            <></>
+        }
       </section>
 
       <section className="pagination">
