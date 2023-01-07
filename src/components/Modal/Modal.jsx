@@ -4,10 +4,10 @@ import "./Modal.scss";
 import Loader from "../Loader/Loader";
 
 function Modal(props) {
-  return <section className={`Modal${props.showModal ? ' on' : ' off'}`}>
+  return <section className={`Modal${props.showModal ? ' on' : ' off'}`} data-testid="modal-component">
     <button className="modal-overlay" onClick={props.toggleModal} />
     <div className="modal-box">
-      <header className="modal-header">
+      <header className="modal-header" data-testid="modal-header">
         Search Results
         <button className="close-modal" onClick={props.toggleModal}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
@@ -26,7 +26,7 @@ function Modal(props) {
           <ul className="players-list">
             {
               props.playerData?.length > 0 ?
-                props.playerData?.map((player, idx) => <li key={idx} className="player">
+                props.playerData?.map((player, idx) => <li data-testid={`player-${idx}`} key={idx} className="player">
                   {player.first_name} {player.last_name}
                 </li>) :
                 "No players found"

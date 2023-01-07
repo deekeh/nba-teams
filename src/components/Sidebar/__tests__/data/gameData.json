@@ -1,0 +1,29 @@
+{
+  "id": 47179,
+  "date": "2019-01-30T00:00:00.000Z",
+  "home_team": {
+    "id": 2,
+    "abbreviation": "BOS",
+    "city": "Boston",
+    "conference": "East",
+    "division": "Atlantic",
+    "full_name": "Boston Celtics",
+    "name": "Celtics"
+  },
+  "home_team_score": 126,
+  "period": 4,
+  "postseason": false,
+  "season": 2018,
+  "status": "Final",
+  "time": " ",
+  "visitor_team": {
+    "id": 4,
+    "abbreviation": "CHA",
+    "city": "Charlotte",
+    "conference": "East",
+    "division": "Southeast",
+    "full_name": "Charlotte Hornets",
+    "name": "Hornets"
+  },
+  "visitor_team_score": 94
+}
