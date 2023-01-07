@@ -140,8 +140,8 @@ function Home() {
   }
 
   return <>
-    <main className="Home">
-      <header className="header">
+    <main className="Home" data-testid="home-page">
+      <header className="header" data-testid="home-page-header">
         NBA Teams
       </header>
 

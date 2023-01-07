@@ -4,12 +4,12 @@ import "./Sidebar.scss";
 import Loader from "../Loader/Loader";
 
 function Sidebar(props) {
-  return <aside className={`Sidebar ${props.state ? 'on' : 'off'}`}>
+  return <aside className={`Sidebar ${props.state ? 'on' : 'off'}`} data-testid="sidebar-component">
     <button className="overlay" onClick={props.toggleSidebar} />
 
     <section className="data-box">
       <header className="data-box-header">
-        <div className="team-name">
+        <div className="team-name" data-testid="home-team-name">
           {props.data?.home_team?.name || <i>Loading...</i>}
         </div>
         <button className="close-sidebar" onClick={props.toggleSidebar}>
@@ -19,7 +19,7 @@ function Sidebar(props) {
         </button>
       </header>
 
-      <section className="data-box-info">
+      <section className="data-box-info" data-testid="data-box-info">
         {
           props.data === 'loading' ?
             <div className="loader-container">
@@ -28,13 +28,13 @@ function Sidebar(props) {
             <>
               <div className="data-row">
                 <div className="data-cell">Team Full Name</div>
-                <div className="data-cell">
+                <div className="data-cell" data-testid="home-team-full-name">
                   {props.data?.home_team?.full_name || <>NA</>}
                 </div>
               </div>
               <div className="data-row">
                 <div className="data-cell">Total Games in 2021</div>
-                <div className="data-cell">
+                <div className="data-cell" data-testid="period">
                   {props.data?.period || <>NA</>}
                 </div>
               </div>
